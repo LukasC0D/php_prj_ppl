@@ -23,6 +23,14 @@ include_once './Files/db.php';
                 echo $path; ?></h1>
         </div>
     </header>
+    <div class="container">
+        <?php
+        if ($path == 'people') {
+            include './Files/people.php'; 
+        } else if ($path == 'projects') {
+            include './Files/projects.php'; 
+        }
+        ?>
+    </div>
 </body>
-
 </html>
