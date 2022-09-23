@@ -2,6 +2,12 @@
 
 include_once './Assets/Files/db.php';
 
+if (isset($_GET['action']) && $_GET['action'] == 'delete') {
+    $sql = 'DELETE FROM ' . $_GET['path'] . ' WHERE id = ' . $_GET['id'];
+    $connection->query($sql);
+    header('location:./?path=' . $_GET['path']);
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
