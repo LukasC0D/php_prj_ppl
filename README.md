@@ -24,7 +24,7 @@ Project manager with MySQL database.
 ## How to run?
 
 - Download [XAMPP](https://www.apachefriends.org/index.html) and install it.
-- Clone or download git repository https://github.com/LukasC0D/php_file_browser. 
+- Clone or download git repository https://github.com/LukasC0D/php_prj_ppl 
 - Add repository to htdocs.The folder is located in the C drive (C:/xampp/htdocs).
 - Or clone repository directly to htdocs. In htdocs directory right mouse click Git Bash Here. Type in:
 ```sh
