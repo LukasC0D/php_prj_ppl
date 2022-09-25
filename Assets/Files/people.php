@@ -1,16 +1,17 @@
 <?php
 include './Assets/Files/ppl_edit.php';
 ?>
-<table>
+<table class="container mt-5">
     <thead>
         <tr>
             <th>ID</th>
             <th>Full Name</th>
             <th>Project</th>
-            <th>Actions</th>
+            <th class="text-end">Actions</th>
         </tr>
     </thead>
     <tbody>
+        <!-- SELECT projects.id, project_name, group_concat(concat(first_name, " ", last_name) SEPARATOR "<br>") -->
         <?php
         $sql = 'SELECT people.id, concat(first_name," ", last_name) as full_name, project_name
                     FROM people
@@ -27,34 +28,41 @@ include './Assets/Files/ppl_edit.php';
                 for ($i = 0; $i < count($row); $i++) {
                     echo '<td>';
                     echo $row[array_keys($row)[$i]];
-                    echo '</td>';
-                }
-                echo '<td>';
-                echo '<td><button><a href="?path=people&action=update&id=' . $row['id'] . '">Edit</a></button>'; 
-                echo '<button><a href="?path=people&action=delete&id=' . $row['id'] . '">Delete</a></button></td>';
-                echo '</tr>';
+                    echo '</td>';      
+                } 
+                echo '<td class="float-end"><button class="btn btn-danger me-2"><a class="text-decoration-none text-white" href="?path=people&action=update&id=' . $row['id'] . '">Edit</a></button>'; 
+                echo '<button class="btn btn-dark"><a class="text-decoration-none text-white" href="?path=people&action=delete&id=' . $row['id'] . '">Delete</a></button></td>';
             }
+            
         }
-        echo '<tr><td></td><td><button><a href="?path=people&action=add">ADD NEW PERSON</a></button></td></tr>'; 
         ?>
     </tbody>
 </table>
 
 <?php
+echo '<div class="container pt-3 rounded">
+        <tr>
+            <td>
+                <button class="rounded">
+                    <a class="text-decoration-none" href="?path=people&action=add">ADD NEW PERSON</a>
+                </button>
+            </td>
+         </tr>
+      </div>'; 
 if (isset($_GET['action']) and $_GET['action'] == 'add') {
     $sql = 'SELECT COUNT(*) AS count FROM projects;'; 
     $result = $connection->query($sql);
     $res = $result->fetch_assoc();
     if ($res['count'] > 0) {
 
-        echo '<form method="POST">
+        echo '<form class="container pt-3" method="POST">
                 <h3>Add new person</h3>
-                <label for="first_name">First name:</label>
-                <input type="text" name="first_name" id="first_name" minlength="2" maxlength="20" size="10" style="text-transform: capitalize; required>
-                <label for="last_name">Last name:</label>
-                <input type="text" name="last_name" id="last_name" minlength="2" maxlength="20" size="10" style="text-transform: capitalize; required>
-                <label for="project">Asigned project:</label>
-                <select name="project_id" id="project" required>
+                <label for="first_name">First name</label>
+                <input class="rounded" type="text" name="first_name" id="first_name" minlength="2" maxlength="20" size="10"; required>
+                <label class="ps-3" for="last_name">Last name</label>
+                <input class="rounded" type="text" name="last_name" id="last_name" minlength="2" maxlength="20" size="10"; required>
+                <label class="ps-3" for="project">Asigned project:</label>
+                <select class="rounded" name="project_id" id="project" required>
                 <option value="0"></option>';
         $sql = 'SELECT DISTINCT projects.id, project_name FROM projects;';
         $connection->query($sql);
@@ -66,7 +74,7 @@ if (isset($_GET['action']) and $_GET['action'] == 'add') {
             }
         }
         echo '</select>
-                <button type="submit" name="add">Add</button>
+                <button class="rounded ms-1" type="submit" name="add">Add</button>
             </form>';
     } else {
         echo '<div>Please create project first!</div>';
@@ -82,13 +90,13 @@ if (isset($_GET['action']) && $_GET['action'] == 'update') {
     $_POST['first_name'] = $row['first_name'];
     $_POST['last_name'] = $row['last_name'];
 
-    echo '<form method="POST">
+    echo '<form class="container pt-3" method="POST">
                 <h3>Update person</h3>
-                <label for="first_name">First name:</label>
-                <input type="text" name="first_name" id="first_name" minlength="2" maxlength="20" size="10" value="' . $row['first_name'] . '">
-                <label for="last_name">Last name:</label>
-                <input type="text" name="last_name" id="last_name" minlength="2" maxlength="20" size="10" value="' . $row['last_name'] . '">
-                <label for="project">Asigned project:</label>
+                <label for="first_name">First name</label>
+                <input class="rounded" type="text" name="first_name" id="first_name" minlength="2" maxlength="20" size="10" value="' . $row['first_name'] . '">
+                <label class="ps-3" for="last_name">Last name</label>
+                <input class="rounded" type="text" name="last_name" id="last_name" minlength="2" maxlength="20" size="10" value="' . $row['last_name'] . '">
+                <label class="ps-3" for="project">Asigned project</label>
                 <select name="project_id" id="project" required>
                     <option value="0"></option>';
     $sql = 'SELECT DISTINCT projects.id, project_name FROM projects;';
@@ -110,7 +118,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'update') {
         }
     }
     echo '  </select>   
-                <button type="submit" name="update">Update</button>
+                <button class="rounded ms-1" type="submit" name="update">Update</button>
             </form>';
 }
 ?>

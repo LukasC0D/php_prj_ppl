@@ -1,17 +1,17 @@
 <?php
 require './Assets/Files/prj_edit.php';
 ?>
-<table>
+<table class="container mt-5">
     <thead>
         <tr>
             <th>ID</th>
             <th>Project</th>
             <th>People Involved</th>
-            <th>Actions</th>
+            <th class="text-end">Actions</th>
         </tr>
     </thead>
     <tbody>
-        <?php 
+        <?php
         $sql = 'SELECT projects.id, project_name, group_concat(concat(first_name, " ", last_name) SEPARATOR "<br>")
                     FROM projects
                     LEFT JOIN projects_people
@@ -21,7 +21,7 @@ require './Assets/Files/prj_edit.php';
                     GROUP BY projects.id;';
         $result = $connection->query($sql);
 
-        if (mysqli_num_rows($result) > 0) { 
+        if (mysqli_num_rows($result) > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo '<tr>';
                 for ($i = 0; $i < count($row); $i++) {
@@ -29,35 +29,41 @@ require './Assets/Files/prj_edit.php';
                     echo $row[array_keys($row)[$i]];
                     echo '</td>';
                 }
-                echo '<td>';
-                echo '<td><button><a href="?path=projects&action=update&id=' . $row['id'] . '">Edit</a></button>'; 
-                echo '<button><a href="?path=projects&action=delete&id=' . $row['id'] . '">Delete</a></button></td>'; 
-                echo '</tr>';
+                echo '<td class="float-end"><button class="btn btn-danger me-2"><a class="text-decoration-none text-white" href="?path=projects&action=update&id=' . $row['id'] . '">Edit</a></button>';
+                echo '<button class="btn btn-dark"><a class="text-decoration-none text-white" href="?path=projects&action=delete&id=' . $row['id'] . '">Delete</a></button></td>';
             }
         }
-        echo '<tr><td></td><td><button><a href="?path=projects&action=add">ADD NEW PROJECT</a></button></td></tr>';
         ?>
     </tbody>
 </table>
 <?php
-if (isset($_GET['action']) && $_GET['action'] == 'add') { 
-    echo '<form method="POST">
+    echo '<div class="container pt-3">
+            <tr>
+                <td>
+                    <button class="rounded">
+                        <a class="text-decoration-none" href="?path=projects&action=add">ADD NEW PROJECT</a>
+                    </button>
+                </td>
+            </tr>
+          </div>';
+if (isset($_GET['action']) && $_GET['action'] == 'add') {
+    echo '<form class="container pt-3" method="POST">
             <h3>Add new project</h3>
-            <label for="project_name">Project name:</label>
-            <input type="text" name="project_name" id="project_name" minlength="2" maxlength="35" size="10" required>
+            <label for="project_name">Project name</label>
+            <input class="rounded ms-1" type="text" name="project_name" id="project_name" minlength="2" maxlength="35" size="10" required>
             </select>
-            <button type="submit" name="add">Add</button>
+            <button class="rounded ms-1" type="submit" name="add">Add</button>
         </form>';
-} else if (isset($_GET['action']) && $_GET['action'] == 'update') { 
+} else if (isset($_GET['action']) && $_GET['action'] == 'update') {
     $sql = 'SELECT project_name FROM projects WHERE id = ' . $_GET['id'];
     $result = $connection->query($sql);
     $row = $result->fetch_assoc();
     $_POST['project_name'] = $row['project_name'];
-    echo '<form method="POST">
+    echo '<form class="container pt-3" method="POST">
                 <h3>Update project</h3>
-                <label for="project_name">Project name:</label>
-                <input type="text" name="project_name" id="project_name" minlength="2" maxlength="35" size="10" value="' . $row['project_name'] . '">
-                <label for="people">Asigned people:</label>
+                <label for="project_name">Project name</label>
+                <input class="rounded" type="text" name="project_name" id="project_name" minlength="2" maxlength="35" size="10" value="' . $row['project_name'] . '">
+                <label class="ps-3 pe-1" for="people">Asigned people</label>
                 <select name="people_id[]" id="people" multiple>';
     $sql = 'SELECT DISTINCT id, first_name, last_name FROM people;';
     $connection->query($sql);
@@ -75,7 +81,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'add') {
         }
     }
     echo '  </select>   
-                <button type="submit" name="update">Update</button>
+                <button class="rounded ms-1" type="submit" name="update">Update</button>
             </form>';
 }
 ?>
