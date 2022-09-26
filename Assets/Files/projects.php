@@ -37,7 +37,7 @@ require './Assets/Files/prj_edit.php';
     </tbody>
 </table>
 <?php
-    echo '<div class="container pt-3">
+    echo '<div class="container pt-3 pb-4">
             <tr>
                 <td>
                     <button class="rounded">
@@ -47,7 +47,7 @@ require './Assets/Files/prj_edit.php';
             </tr>
           </div>';
 if (isset($_GET['action']) && $_GET['action'] == 'add') {
-    echo '<form class="container pt-3" method="POST">
+    echo '<form class="container pt-3 pb-4" method="POST">
             <h3>Add new project</h3>
             <label for="project_name">Project name</label>
             <input class="rounded ms-1" type="text" name="project_name" id="project_name" minlength="2" maxlength="35" size="10" required>
@@ -59,7 +59,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'add') {
     $result = $connection->query($sql);
     $row = $result->fetch_assoc();
     $_POST['project_name'] = $row['project_name'];
-    echo '<form class="container pt-3" method="POST">
+    echo '<form class="container pt-3 pb-4" method="POST">
                 <h3>Update project</h3>
                 <label for="project_name">Project name</label>
                 <input class="rounded" type="text" name="project_name" id="project_name" minlength="2" maxlength="35" size="10" value="' . $row['project_name'] . '">

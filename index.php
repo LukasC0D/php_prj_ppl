@@ -25,10 +25,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="<?php echo ($path == "./?path=people" ? "nav-link active" : "nav-link")?>"href="./?path=projects">Projects</a>
+                        <a class="<?php echo ($_GET['path'] == "projects" ? "nav-link active" : "nav-link")?>"href="./?path=projects">Projects</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./?path=people">People</a>
+                        <a class="<?php echo ($_GET['path'] == "people" ? "nav-link active" : "nav-link")?>" href="./?path=people">People</a>
                     </li>
                 </ul>
             </div>
