@@ -55,7 +55,7 @@ if (isset($_GET['action']) and $_GET['action'] == 'add') {
     $res = $result->fetch_assoc();
     if ($res['count'] > 0) {
 
-        echo '<form class="container pt-3 pb-4" method="POST">
+        echo '<form class="container pb-4" method="POST">
                 <h3>Add new person</h3>
                 <label for="first_name">First name</label>
                 <input class="rounded" type="text" name="first_name" id="first_name" minlength="2" maxlength="20" size="10"; required>
@@ -90,7 +90,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'update') {
     $_POST['first_name'] = $row['first_name'];
     $_POST['last_name'] = $row['last_name'];
 
-    echo '<form class="container pt-3 pb-4" method="POST">
+    echo '<form class="container pb-4" method="POST">
                 <h3>Update person</h3>
                 <label for="first_name">First name</label>
                 <input class="rounded" type="text" name="first_name" id="first_name" minlength="2" maxlength="20" size="10" value="' . $row['first_name'] . '">
